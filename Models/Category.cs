@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace projectEF.Models;
 
@@ -14,5 +15,6 @@ public class Category
 
   public int Point {get; set;}
 
+  [JsonIgnore]
   public virtual ICollection<Todo> Todos {get;set;}
 }
