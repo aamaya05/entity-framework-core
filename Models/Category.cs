@@ -1,15 +1,20 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
-namespace proyectEF.Models;
+namespace projectEF.Models;
 
-public class Category 
+public class Category
 {
-  [Key]
-  public Guid CategoryId {get;set;}
+  public int CategoryId {get;set;}
+
+  public Guid Uuid {get;set;}
 
   public string Name {get;set;}
 
-  public string Description {get;set;}
+  public string? Description {get;set;}
 
-  public virtual ICollection<Tasks> Tasks {get;set;}
+  public int Point {get; set;}
+
+  [JsonIgnore]
+  public virtual ICollection<Todo> Todos {get;set;}
 }
