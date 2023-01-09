@@ -31,6 +31,6 @@ public enum Priority
   HIGH
 }
 
-// dotnet remove package Syncfusion.SfGrid.WPF
-//dotnet new gitignore
-//dotnet new globaljson
+// dotnet remove package Syncfusion.SfGrid.WPF : how to remove a nuget library for the project
+//dotnet new gitignore : add git ignore file
+//dotnet new globaljson: add global json for sdk version
