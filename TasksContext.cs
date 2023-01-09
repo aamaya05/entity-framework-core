@@ -13,12 +13,21 @@ public class TasksContext : DbContext
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
+
+    List<Category> categoriesInit = new List<Category>
+    {
+      new Category() { CategoryId = 1, Uuid = Guid.Parse("9cfab1c9-c234-42e4-a64f-78be3eb8e12d"), Name = "Actividades Pendientes", Point = 20 },
+      new Category() { CategoryId = 2 ,Uuid = Guid.Parse("9cfab1c9-c234-42e4-a64f-78be3eb8e56d"), Name = "Actividades Personales", Point = 20 }
+    };
+
     modelBuilder.Entity<Category>(category =>
     {
       category
         .ToTable("category");
       category
-        .HasKey(p => p.CategoryId);
+        .Property(p => p.CategoryId)
+        .HasColumnName("id")
+        .ValueGeneratedOnAdd();
       category
         .Property(p => p.Name)
         .IsRequired()
@@ -26,12 +35,21 @@ public class TasksContext : DbContext
         .HasMaxLength(150);
       category
         .Property(p => p.Description)
+        .IsRequired(false)
         .HasColumnName("description");
       category
         .Property(c => c.Point);
+      category
+        .HasData(categoriesInit);
     });
 
-      modelBuilder.Entity<Todo>(todo =>
+    List<Todo> todosInit = new List<Todo>
+    {
+      new Todo() { TodoId = 1, Uuid = Guid.Parse("34d722eb-5fda-4e1f-b838-150140ba4e30"), CategoryId = 1, PriorityTask = Priority.LOW, Title = "Pago de servicios publicos" },
+      new Todo() { TodoId = 2, Uuid = Guid.Parse("34d722eb-5fda-4e1f-b838-150140ba4e11"), CategoryId = 2, PriorityTask = Priority.LOW, Title = "Pago de cuota" }
+    };
+
+    modelBuilder.Entity<Todo>(todo =>
     {
       todo
         .ToTable("todo");
@@ -68,6 +86,8 @@ public class TasksContext : DbContext
         .HasDefaultValueSql("NOW()");
       todo
         .Ignore(p => p.Resume);
+      todo
+        .HasData(todosInit);
     });
   }
 }
